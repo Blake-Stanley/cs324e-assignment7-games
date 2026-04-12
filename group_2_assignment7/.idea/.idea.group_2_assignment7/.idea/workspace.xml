@@ -8,17 +8,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4b774ed-3c03-4a3c-942a-6f10dd9df0cb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/BodyFont.spritefont" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/HudFont.spritefont" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/TitleFont.spritefont" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Content.mgcb" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Content.mgcb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Game1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HUD.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScreenManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ScreenManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SpriteFont File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "sydneykieu"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Blake-Stanley/cs324e-assignment7-games.git",
+    "accountId": "4627ce30-a7f9-4add-a778-9e4c52e5d60c"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -33,13 +66,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Project.group_2_assignment7.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "jinsoo-a7-sprite-update",
+    "git-widget-placeholder": "sydney-branch",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
@@ -85,6 +120,7 @@
       <workItem from="1775672062108" duration="5000" />
       <workItem from="1776006398588" duration="4562000" />
       <workItem from="1776021528841" duration="740000" />
+      <workItem from="1776028348057" duration="3838000" />
     </task>
     <servers />
   </component>
@@ -92,6 +128,17 @@
     <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
