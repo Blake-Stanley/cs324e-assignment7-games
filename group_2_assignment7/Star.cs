@@ -28,7 +28,7 @@ public class Star
 
         currentFrame = 0;
         frameTimer = 0f;
-        frameDuration = 1.0f;
+        frameDuration = 0.1f;
         frameW = spriteSheet.Width / 2;
         frameH = spriteSheet.Height;
         boundingBox = new Rectangle((int)xPosition, 0, frameW, frameH);
