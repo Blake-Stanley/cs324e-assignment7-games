@@ -17,6 +17,7 @@ public class Star
     private int frameW;
     private int frameH;
     private int screenH;
+    public const float Scale = 1f / 5f;
     
 
     public Star(Texture2D spriteSheet, float xPosition, float fallSpeed, int screenH)
@@ -61,8 +62,8 @@ public class Star
                 isActive = false;
             }
 
-            boundingBox = new Rectangle((int)position.X, (int)position.Y, 
-                frameW, frameH);
+            boundingBox = new Rectangle((int)position.X, (int)position.Y,
+                (int)(frameW * Scale), (int)(frameH * Scale));
         }
         
     }
@@ -74,7 +75,7 @@ public class Star
             Rectangle currentRect = new Rectangle((int)frameW * currentFrame,
             0, frameW, frameH);
 
-            spriteBatch.Draw(spriteSheet, position, currentRect, Color.White);
+            spriteBatch.Draw(spriteSheet, position, currentRect, Color.White, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
         }
     }
 
