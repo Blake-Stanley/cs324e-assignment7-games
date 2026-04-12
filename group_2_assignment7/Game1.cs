@@ -11,7 +11,7 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    private GameState gameState;
+    private GameState gameState = GameState.TITLE;
     private Player player;
     private int score;
     private int lives;
@@ -34,19 +34,19 @@ public class Game1 : Game
     private List<float> recentStarX;
     private List<float> recentSwordX;
     private const int MinSpawnDist = 100;
-    
+
     private Texture2D swordTexture;
     private Texture2D playerSheet;
     private Texture2D backgroundTexture;
     private Texture2D groundTexture;
     private const int GroundHeight = 48;
-    
+
     private SpriteFont titleFont;
     private SpriteFont bodyFont;
     private SpriteFont hudFont;
-    
-    
-    
+
+
+
     private Random _random;
     private int screenH;
     private int screenW;
@@ -65,7 +65,7 @@ public class Game1 : Game
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
-        _graphics.PreferredBackBufferWidth  = 480;
+        _graphics.PreferredBackBufferWidth = 480;
         _graphics.PreferredBackBufferHeight = 800;
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -74,24 +74,24 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        gameState = GameState.PLAYING; // TODO: switch back to TITLE once Sydney's ScreenManager is implemented
+        gameState = GameState.TITLE;
         lives = 3;
         score = 0;
         animTimer = 0f;
         animDuration = 0.15f;
         obstacles = new List<Obstacle>();
         stars = new List<Star>();
-        recentStarX  = new List<float>();
+        recentStarX = new List<float>();
         recentSwordX = new List<float>();
-        starSpawnTimer     = 1.5f;   // first star after 1.5s
-        starSpawnInterval  = 2.5f;   // stars spawn less frequently
-        swordSpawnTimer    = 2.0f;   // first sword after 2.0s (staggered)
+        starSpawnTimer = 1.5f; // first star after 1.5s
+        starSpawnInterval = 2.5f; // stars spawn less frequently
+        swordSpawnTimer = 2.0f; // first sword after 2.0s (staggered)
         swordSpawnInterval = 2.0f;
         screenH = GraphicsDevice.Viewport.Height;
         screenW = GraphicsDevice.Viewport.Width;
         _random = new Random();
         prevKS = Keyboard.GetState();
-        
+
         base.Initialize();
     }
 
@@ -105,26 +105,32 @@ public class Game1 : Game
         playerSheet = Content.Load<Texture2D>("player");
 
         backgroundTexture = Content.Load<Texture2D>("background");
-        groundTexture     = Content.Load<Texture2D>("ground");
-        swordTexture      = Content.Load<Texture2D>("sword");
+        groundTexture = Content.Load<Texture2D>("ground");
+        swordTexture = Content.Load<Texture2D>("sword");
 
         player = new Player(playerSheet,
             new Vector2(screenW / 2 - 32, screenH - GroundHeight - 64),
             screenW, screenH, GroundHeight);
 
         // TODO: uncomment once Sydney pushes her assets
-        // titleFont = Content.Load<SpriteFont>("TitleFont");
-        // bodyFont = Content.Load<SpriteFont>("BodyFont");
-        // hudFont = Content.Load<SpriteFont>("HudFont");
-        // hud = new HUD(hudFont, Content.Load<Texture2D>("heart"));
-        // screenManager = new ScreenManager(titleFont, bodyFont);
+        titleFont = Content.Load<SpriteFont>("TitleFont");
+        bodyFont = Content.Load<SpriteFont>("BodyFont");
+        hudFont = Content.Load<SpriteFont>("HudFont");
+        
+        Texture2D heartTexture = Content.Load<Texture2D>("heart");
+
+        hud = new HUD(hudFont, heartTexture);
+        screenManager = new ScreenManager(titleFont, bodyFont, screenW, screenH);
+        
+        Console.WriteLine("Heart texture loaded: " + (heartTexture != null));
     }
 
     protected override void Update(GameTime gameTime)
     {
         currKS = Keyboard.GetState();
-        
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+            Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
         // TODO: Add your update logic here
@@ -136,14 +142,14 @@ public class Game1 : Game
             {
                 gameState = GameState.PLAYING;
             }
-            
+
             // pause
             else
             {
                 gameState = GameState.PAUSED;
             }
         }
-        
+
         // Enter key for restart
         if (currKS.IsKeyDown(Keys.Enter) && prevKS.IsKeyUp(Keys.Enter))
         {
@@ -152,10 +158,10 @@ public class Game1 : Game
             gameState = GameState.PLAYING;
             stars = new List<Star>();
             obstacles = new List<Obstacle>();
-            recentStarX  = new List<float>();
+            recentStarX = new List<float>();
             recentSwordX = new List<float>();
-            starSpawnTimer   = 1.5f;
-            swordSpawnTimer  = 2.0f;
+            starSpawnTimer = 1.5f;
+            swordSpawnTimer = 2.0f;
         }
 
         // Title screen: press Enter to start
@@ -166,7 +172,7 @@ public class Game1 : Game
                 gameState = GameState.PLAYING;
             }
         }
-        
+
         if (gameState == GameState.PLAYING)
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -176,14 +182,14 @@ public class Game1 : Game
             {
                 animTimer = 0f;
             }
-            
+
             // difficulty scaling: intervals shrink every 10 points
-            starSpawnInterval  = Math.Max(1.2f, 2.5f - (score / 10) * 0.1f);
+            starSpawnInterval = Math.Max(1.2f, 2.5f - (score / 10) * 0.1f);
             swordSpawnInterval = Math.Max(0.8f, 2.0f - (score / 10) * 0.1f);
 
             float swordFallSpeed = 80f + (score / 10) * 10f;
 
-            starSpawnTimer  -= dt;
+            starSpawnTimer -= dt;
             swordSpawnTimer -= dt;
 
             if (starSpawnTimer <= 0f)
@@ -196,7 +202,8 @@ public class Game1 : Game
             if (swordSpawnTimer <= 0f)
             {
                 int swordRenderW = (int)(swordTexture.Width * Obstacle.Scale);
-                obstacles.Add(new Obstacle(swordTexture, PickSpawnX(swordRenderW, recentSwordX), swordFallSpeed, screenH));
+                obstacles.Add(new Obstacle(swordTexture, PickSpawnX(swordRenderW, recentSwordX), swordFallSpeed,
+                    screenH));
                 swordSpawnTimer = swordSpawnInterval;
             }
 
@@ -227,15 +234,21 @@ public class Game1 : Game
             // remove inactive stars
             for (int i = stars.Count - 1; i >= 0; i--)
             {
-                if (!stars[i].Active()) { stars.RemoveAt(i); }
+                if (!stars[i].Active())
+                {
+                    stars.RemoveAt(i);
+                }
             }
 
             // remove inactive obstacles
             for (int i = obstacles.Count - 1; i >= 0; i--)
             {
-                if (!obstacles[i].Active()) { obstacles.RemoveAt(i); }
+                if (!obstacles[i].Active())
+                {
+                    obstacles.RemoveAt(i);
+                }
             }
-            
+
             // check win/lose conditions
             if (score >= 50)
             {
@@ -245,7 +258,7 @@ public class Game1 : Game
             {
                 gameState = GameState.LOSE;
             }
-            
+
         }
 
         prevKS = currKS;
@@ -290,24 +303,39 @@ public class Game1 : Game
         _spriteBatch.Draw(backgroundTexture, Vector2.Zero, Color.White);
         _spriteBatch.Draw(groundTexture, new Vector2(0, screenH - GroundHeight), Color.White);
 
-        foreach (Star star in stars)
+        if (gameState == GameState.PLAYING)
         {
-            star.Draw(_spriteBatch);
+            foreach (Star star in stars)
+                star.Draw(_spriteBatch);
+
+            foreach (Obstacle obstacle in obstacles)
+                obstacle.Draw(_spriteBatch);
+
+            player.Draw(_spriteBatch);
+
+            hud.Draw(_spriteBatch, score, lives, score / 10);
+        }
+        else if (gameState == GameState.TITLE)
+        {
+            screenManager.DrawTitle(_spriteBatch);
+        }
+        else if (gameState == GameState.PAUSED)
+        {
+            screenManager.DrawPause(_spriteBatch);
+        }
+        else if (gameState == GameState.WIN)
+        {
+            screenManager.DrawWin(_spriteBatch, score);
+        }
+        else if (gameState == GameState.LOSE)
+        {
+            screenManager.DrawLose(_spriteBatch, score);
         }
 
-        foreach (Obstacle obstacle in obstacles) { obstacle.Draw(_spriteBatch); }
-
-        player.Draw(_spriteBatch);
-        
-        // hud.Draw(_spriteBatch, score, lives, score / 10);
-        
-        // if (gameState == GameState.TITLE) { screenManager.DrawTitle(_spriteBatch); }
-        // else if (gameState == GameState.PAUSED) { screenManager.DrawPause(_spriteBatch); }
-        // else if (gameState == GameState.WIN) { screenManager.DrawWin(_spriteBatch, score); }
-        // else if (gameState == GameState.LOSE) { screenManager.DrawLose(_spriteBatch, score); }
-        
         _spriteBatch.End();
 
         base.Draw(gameTime);
     }
 }
+
+
