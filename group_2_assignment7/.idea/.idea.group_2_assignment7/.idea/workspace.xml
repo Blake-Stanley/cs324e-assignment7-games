@@ -8,8 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4b774ed-3c03-4a3c-942a-6f10dd9df0cb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.group_2_assignment7/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Game1.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +39,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "jinsoo-a7-sprite-update",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "node.js.detected.package.eslint": "true",
@@ -84,6 +84,7 @@
       <updated>1775672059857</updated>
       <workItem from="1775672062108" duration="5000" />
       <workItem from="1776006398588" duration="4562000" />
+      <workItem from="1776021528841" duration="740000" />
     </task>
     <servers />
   </component>
