@@ -9,7 +9,7 @@
 
 ## How to Play
 - Use **Left / Right Arrow Keys** to move the player.
-- Avoid falling rocks (obstacles).
+- Avoid falling swords (obstacles).
 - Collect falling stars to gain points.
 - Reach **50 points to win**.
 - Lose all **3 lives to lose the game**.
