@@ -3,16 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace group_2_assignment7;
 
-// TODO: Sydney — implement full HUD drawing (score, heart icons, difficulty level)
 public class HUD
 {
     private SpriteFont font;
     private Texture2D heartTexture;
+    private int screenW;
 
-    public HUD(SpriteFont font, Texture2D heartTexture)
+    public HUD(SpriteFont font, Texture2D heartTexture, int screenW = 480)
     {
         this.font = font;
         this.heartTexture = heartTexture;
+        this.screenW = screenW;
     }
 
     public void Draw(SpriteBatch spriteBatch, int score, int lives, int difficulty)
@@ -30,7 +31,7 @@ public class HUD
         for (int i = 0; i < lives; i++)
         {
             Vector2 position = new Vector2(
-                800 - (i + 1) * (heartSize + spacing), // adjust 800 if your screen width differs
+                screenW - (i + 1) * (heartSize + spacing),
                 10
             );
 

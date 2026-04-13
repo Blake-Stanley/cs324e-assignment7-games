@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace group_2_assignment7;
 
-// TODO: Sydney — implement title, pause, win, and lose screen overlays
 public class ScreenManager
 {
    private SpriteFont titleFont;

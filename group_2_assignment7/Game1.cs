@@ -119,7 +119,7 @@ public class Game1 : Game
         
         Texture2D heartTexture = Content.Load<Texture2D>("heart");
 
-        hud = new HUD(hudFont, heartTexture);
+        hud = new HUD(hudFont, heartTexture, screenW);
         screenManager = new ScreenManager(titleFont, bodyFont, screenW, screenH);
         
         Console.WriteLine("Heart texture loaded: " + (heartTexture != null));
@@ -150,8 +150,18 @@ public class Game1 : Game
             }
         }
 
-        // Enter key for restart
-        if (currKS.IsKeyDown(Keys.Enter) && prevKS.IsKeyUp(Keys.Enter))
+        // Title screen: press Enter to start
+        if (gameState == GameState.TITLE)
+        {
+            if (currKS.IsKeyDown(Keys.Enter) && prevKS.IsKeyUp(Keys.Enter))
+            {
+                gameState = GameState.PLAYING;
+            }
+        }
+
+        // R key to restart from win/lose screens
+        if ((gameState == GameState.WIN || gameState == GameState.LOSE) &&
+            currKS.IsKeyDown(Keys.R) && prevKS.IsKeyUp(Keys.R))
         {
             score = 0;
             lives = 3;
@@ -162,15 +172,6 @@ public class Game1 : Game
             recentSwordX = new List<float>();
             starSpawnTimer = 1.5f;
             swordSpawnTimer = 2.0f;
-        }
-
-        // Title screen: press Enter to start
-        if (gameState == GameState.TITLE)
-        {
-            if (currKS.IsKeyDown(Keys.Enter) && prevKS.IsKeyUp(Keys.Enter))
-            {
-                gameState = GameState.PLAYING;
-            }
         }
 
         if (gameState == GameState.PLAYING)
@@ -184,10 +185,10 @@ public class Game1 : Game
             }
 
             // difficulty scaling: intervals shrink every 10 points
-            starSpawnInterval = Math.Max(1.2f, 2.5f - (score / 10) * 0.1f);
-            swordSpawnInterval = Math.Max(0.8f, 2.0f - (score / 10) * 0.1f);
+            starSpawnInterval = Math.Max(1.2f, 2.5f - (score / 10));
+            swordSpawnInterval = Math.Max(0.8f, 2.0f - (score / 10));
 
-            float swordFallSpeed = 80f + (score / 10) * 10f;
+            float swordFallSpeed = 120f + score * 3;
 
             starSpawnTimer -= dt;
             swordSpawnTimer -= dt;

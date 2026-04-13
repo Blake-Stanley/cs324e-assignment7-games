@@ -1,0 +1,37 @@
+Assignment 7 - Project Description
+Group 2
+
+Game Overview:
+A 2D arcade game called Sky Dodge. The player controls a knight character at the bottom of the screen and must dodge falling swords while collecting falling stars for points. Spawn rate and fall speed increase as the score rises. The player has three lives; collecting 50 stars wins, losing all lives ends in defeat.
+
+Classes:
+- Game1.cs: Main game loop. Manages game state (Title, Playing, Paused, Win, Lose),
+  separate spawn timers for stars and swords, difficulty scaling, collision checks, and
+  delegates drawing to HUD and ScreenManager.
+- Player.cs: Handles left/right movement with screen boundary clamping, idle/walk
+  animation frame cycling from a sprite sheet, and horizontal sprite flipping based on
+  direction.
+- Obstacle.cs: Falling sword that spawns at the top at a random X position and moves
+  downward at a speed that scales with score. Deactivates on collision or going off-screen.
+- Star.cs: Collectible item with a two-frame sparkle animation. Awards one point on
+  contact and deactivates. Shares the same falling logic as Obstacle.
+- HUD.cs: Draws score (top-left), difficulty level (below score), and heart icons for
+  remaining lives (top-right).
+- ScreenManager.cs: Draws full-screen overlays for the title, pause, win, and lose states
+  using separate title and body fonts.
+
+Group Member Contributions:
+- Blake: Player class (movement, animation, sprite flipping) and Obstacle class (falling
+  behavior, collision, speed scaling)
+- Jinsoo: Star class (falling behavior, sparkle animation, point reward) and all keyboard
+  input handling (A/D and arrow keys for movement, P for pause, R for restart)
+- Gian: Game1 game loop, state management, spawn timers, difficulty scaling, and
+  animation timer logic
+- Sydney: HUD (score, hearts, difficulty display), ScreenManager overlays, art assets,
+  and spawn distribution logic to prevent clustering
+
+Challenges:
+- Tuning difficulty scaling so fall speed and spawn rate increase smoothly without
+  becoming unbeatable too quickly.
+- Keeping star and sword spawns spatially spread out required separate recent-position
+  lists and a best-candidate selection algorithm for each object type.
